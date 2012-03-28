@@ -1,0 +1,10 @@
+/pom.xml
+*~
+aws.properties
+*jar
+/lib
+/classes
+/native
+/.lein-failures
+/checkouts
+/.lein-deps-sum
