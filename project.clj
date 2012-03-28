@@ -7,6 +7,7 @@
                  [ring/ring-servlet "1.0.0" :exclusions [javax.servlet/servlet-api]]                
                  [org.slf4j/slf4j-simple "1.6.1"]
                  [yousee-common "1.0.49"]
+                 [dynamo4clj "1.0.0"]
                  [org.clojars.adamwynne/http.async.client "0.4.1"]
                  [ring-common "1.1.15"]
                  [log4j "1.2.16" :exclusions [javax.mail/mail
