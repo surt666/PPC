@@ -19,6 +19,5 @@
                      [org.mortbay.jetty/jetty-plus "6.1.25"]
                      [org.mortbay.jetty/jetty-naming "6.1.25"]
                      [swank-clojure "1.3.3"]]
-  :war {:web-content "war-root"}
-)
+  :war {:web-content "war-root"})
 

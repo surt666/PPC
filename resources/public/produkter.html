@@ -1,30 +1,41 @@
-				<h5>Produkter</h5>
-    <div style="padding-top:10px;" class="container">
+<h5>Produkter</h5>
 
-				<table width='100%'>
-					<th>
-						<tr>
-							<td>Varenummer</td>
-							<td>Navn</td>
-							<td>Produkttype</td>
-						</tr>
-					</th>
-					<tbody>
+<div class="row">
+  <div class="twelve columns panel">
+    <table>
+      <thead>
+        <tr>
+          <th>Varenummer</th><th>Navn</th><th>Produkt type</th><th></th><th></th><th></th>
+        </tr>
+      </thead>
+      <tbody id="produkter">
+        <tr>
+          <td>111</td><td>bla</td><td>abon</td><td></td><td></td><td></td>
+        </tr>
+      </tbody>
+  </div>
+</div>
 
-<!-- Loop through the product to create a single row with data. -->
-						<tr>
-							<td>Varenummer</td>
-							<td>Navn</td>
-							<td>Produkttype</td>
-						</tr>					
-							
-<!-- end loop -->
 
-					</tbody>
-				</table>
-		</div>
-		
-		
-    <script type="text/javascript">
-    $(document).ready(prod.NicTest);
-    </script>
+<div>
+
+<p>Date: <input id="datepicker" type="text"></p>
+
+</div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  getproducts();
+});
+</script>
+
+
+<script type="text/javascript">
+	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional["Dansk"]); 
+		$( "#datepicker" ).datepicker();
+
+	});
+</script>
