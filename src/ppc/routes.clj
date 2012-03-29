@@ -35,7 +35,8 @@
             (json-response res "application/json"))))
 
   (POST ["/:context/produkter" , :context #".[^/]*"] req        
-        (let [res (gem-produkt (parse-body (:body req)))]
+        (let [body (parse-body (:body req))
+              res (gem-produkt (assoc body :varenr (Integer/parseInt (:varenr body))))]
           (if (nil? res)
             (json-response nil "application/json" :status 400)
             (json-response res "application/json"))))

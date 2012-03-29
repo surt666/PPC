@@ -56,6 +56,21 @@
       $("#sorteringsgruppe").val(prod.sorteringsgruppe);
       $("#sortering").val(prod.sortering);        
       $("#salgsstart").val(prod.salgsstart);
+      $("#opdater").click(function() {
+        var p = {'varenr' : $("#varenr").val(),
+                 'navn' : $("#navn").val(),
+                 'fo' : $("#fo").val(),
+                 'pl' : $("#pl").val(),
+                 'vaegt' : $("#vaegt").val(),
+                 'vaegt' : $("#pgt").val(),
+                 'pgt' : $("#pgt").val(),
+                 'pg' : $("#pg").val(),
+                 'sorteringsgruppe' : $("#sorteringsgruppe").val(),
+                 'sortering' : $("#sortering").val(),
+                 'salgsstart' : $("#salgsstart").val()
+                };
+        opdater(p);
+      });
     });      
     </script>  
   </body>

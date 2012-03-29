@@ -75,3 +75,21 @@ function getproduct(varenr) {
   return ret;
 }
 
+function opdater(p) {
+  $.ajax({
+      type: "POST",
+      accepts: "application/json",
+      cache: false,
+      contentType: "application/json",
+      url: "/ppc/produkter",
+      dataType: "json",
+      data: JSON.stringify(p),
+      error: function(request, error) {
+          alert(error + " " + JSON.stringify(request));
+      },
+      success: function(result) {
+          self.close();
+      }
+  });
+}
+
