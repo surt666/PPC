@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html>
 <head> 
     <meta charset="utf-8" /> 
 
@@ -14,7 +14,9 @@
     <!-- Included JS Files --> 
     <script type="text/javascript" src="javascripts/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/foundation.js"></script> 
-    <script type="text/javascript" src="javascripts/app.js"></script>           
+    <script type="text/javascript" src="javascripts/app.js"></script> 
+    <script type="text/javascript" src="javascripts/modernizr.foundation.js"></script>
+    <script type="text/javascript" src="javascripts/ppc.js"></script>
   </head> 
   <body>
     <!-- container --> 
@@ -22,15 +24,13 @@
       <div class="row">
 	      <div class="twelve columns">
               <dl class="nice contained tabs">
-                  <dd><a id="nice6" href="#nice6" class="active">Abonnementer</a></dd>
-	              <dd><a id="nice1" href="#nice1">Services</a></dd>
-	              <dd><a id="nice2" href="#nice2">Engangs ydelser</a></dd>
+                  <dd><a id="nice6" href="#nice6" class="active">Produkter</a></dd>
+	              <dd><a id="nice1" href="#nice1">Services</a></dd>	              
 	              <dd><a id="nice3" href="#nice3">Prisplaner</a></dd>	              
 	          </dl>
         	  <ul class="tabs-content contained">
         	    <li id="nice6Tab" class="active"></li> 
-        	    <li id="nice1Tab"></li> 
-        	    <li id="nice2Tab"></li> 
+        	    <li id="nice1Tab"></li>         	
         	    <li id="nice3Tab"></li>         	    
         	  </ul>
 	</div> 
@@ -40,8 +40,7 @@
     <script type="text/javascript">
     $(document).ready(function(){
         $('#nice6Tab').load('produkter.html');
-        $('#nice1Tab').load('services.html');
-        $('#nice2Tab').load('hardware.html');
+        $('#nice1Tab').load('services.html');       
         $('#nice3Tab').load('prisplaner.html');        
     });      
     </script>  

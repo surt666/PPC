@@ -1,16 +1,20 @@
 <div class="row">
-  <div class="six columns panel">
-    <h3>Modtager:</h3>
-    <textarea id="testReciever" name="testReciever" rows="15" class="nice large">
-      {
-      "reciever":{"email": "maljoe@yousee.dk", "tlf":"004542225050", "kundenummer":61003434}, 
-      "data":{"navn":"Martin"}, 
-      "contactform":"Mail", 
-      "from":"maljoe@yousee.dk"
-      }
-    </textarea>
-    <a id="testSend" class="button nice">Send</a>
-  </div>
-  <div class="five columns" id="testTarget">    
+  <div class="twelve columns panel">
+    <table>
+      <thead>
+        <tr>
+          <th>Varenummer</th><th>Navn</th><th>Produkt type</th><th></th><th></th><th></th>
+        </tr>
+      </thead>
+      <tbody id="produkter">
+        <tr>
+          <td>111</td><td>bla</td><td>abon</td><td></td><td></td><td></td>
+        </tr>
+      </tbody>
   </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+  getproducts();
+});
+</script>
