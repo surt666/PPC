@@ -35,14 +35,14 @@
           <p><label for="pg">Produkt gruppe:</label><input id="pg" type="text" /></p>
           <p><label for="sorteringsgruppe">Sorteringsgruppe:</label><input id="sorteringsgruppe" readonly="true" type="text" /></p>
           <p><label for="sortering">Sortering:</label><input id="sortering" type="text" /></p>
-          <p><label for="salgsstart">Salgs start:</label><input id="salgsstart" type="text"></p>
+          <p><label for="salgsstart">Salgs start:</label><input id="salgsstart" type="text" /></p>
+	</div> 
       </div> 
       <div class="row">
         <div class="nine columns"></div>
         <div class="three columns"><a href="#" id="opdater" class="nice blue button">Opdater</a></div>
       </div>
     </div>
-    
 
     <!-- container --> 
     <script type="text/javascript">
@@ -61,11 +61,22 @@
       $("#sorteringsgruppe").val(prod.sorteringsgruppe);
       $("#sortering").val(prod.sortering);        
       $("#salgsstart").val(prod.salgsstart);
-
+      $("#opdater").click(function() {
+        var p = {'varenr' : $("#varenr").val(),
+                 'navn' : $("#navn").val(),
+                 'fo' : $("#fo").val(),
+                 'pl' : $("#pl").val(),
+                 'vaegt' : $("#vaegt").val(),
+                 'vaegt' : $("#pgt").val(),
+                 'pgt' : $("#pgt").val(),
+                 'pg' : $("#pg").val(),
+                 'sorteringsgruppe' : $("#sorteringsgruppe").val(),
+                 'sortering' : $("#sortering").val(),
+                 'salgsstart' : $("#salgsstart").val()
+                };
+        opdater(p);
+      });
     });      
-
     </script>  
-    
-    
   </body>
 </html>
