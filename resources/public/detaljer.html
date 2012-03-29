@@ -20,10 +20,45 @@
     <script type="text/javascript" src="javascripts/ppc.js"></script>
   </head> 
   <body>
+  
     <!-- container --> 
     <div style="padding-top:10px;" class="container">
-      <div class="row">
-	<div class="six columns">
+    <div class="row">
+
+				<ul class="block-grid four-up">
+					<li><label for="varenr">Varenummer:</label></li>
+					<li><input id="varenr" readonly="true" /></li>
+					
+					<li><label for="navn">Navn:</label></li>
+					<li><input id="navn" type="text" /></li>
+
+					<li><label for="fo">Forretningsområde:</label></li>
+					<li><input id="fo" readonly="true" /></li>
+					
+					<li><label for="pl">Produktlinie:</label></li>
+					<li><input id="pl" type="text" /></li>
+
+					<li><label for="vaegt">Vægt:</label></li>
+					<li><input id="vaegt" readonly="true" /></li>
+					
+					<li><label for="pgt">Produkt type:</label></li>
+					<li><input id="pgt" type="text" /></li>
+
+					<li><label for="pg">Produkt gruppe:</label></li>
+					<li><input id="pg" readonly="true" /></li>
+					
+					<li><label for="sorteringsgruppe">Sorteringsgruppe:</label></li>
+					<li><input id="sorteringsgruppe" type="text" /></li>
+
+					<li><label for="sortering">Sortering:</label></li>
+					<li><input id="sortering" readonly="true" /></li>
+					
+					<li><label for="salgsstart">Salgs start:</label></li>
+					<li><input id="salgsstart" type="text" /></li>
+					
+					
+				</ul>
+<!--
           <p><label for="varenr">Varenummer:</label><input id="varenr" readonly="true" /></p>
           <p><label for="navn">Navn:</label><input id="navn" type="text" /></p>
           <p><label for="fo">Forretningsområde:</label><input id="fo" readonly="true" type="text" /></p>
@@ -37,7 +72,9 @@
           <p><label for="sortering">Sortering:</label><input id="sortering" type="text" /></p>
           <p><label for="salgsstart">Salgs start:</label><input id="salgsstart" type="text" /></p>
 	</div> 
+-->
       </div> 
+  
       <div class="row">
         <div class="nine columns"></div>
         <div class="three columns"><a href="#" id="opdater" class="nice blue button">Opdater</a></div>
@@ -46,10 +83,10 @@
 
     <!-- container --> 
     <script type="text/javascript">
-    $(document).ready(function(){
-   		$.datepicker.setDefaults($.datepicker.regional["Dansk"]); 
-			$( "#salgsstart" ).datepicker();
-
+    $(document).ready(function(){ 
+		
+      $("#salgsstart").datepicker({ dateFormat: "yy-mm-dd" }).val()
+			
       var prod = getproduct(getURLParam("varenr"));      
       $("#varenr").val(prod.varenr);        
       $("#navn").val(prod.navn);
