@@ -23,6 +23,7 @@
   
     <!-- container --> 
     <div style="padding-top:10px;" class="container">
+
     <div class="row">
 
 				<ul class="block-grid four-up">
@@ -68,10 +69,9 @@
 
     <!-- container --> 
     <script type="text/javascript">
-    $(document).ready(function(){ 
-		
-      $("#salgsstart").datepicker({ dateFormat: "yy-mm-dd" }).val()
-			
+      $(document).ready(function(){ 
+      $("#salgsstart").datepicker({dateFormat: "yy-mm-dd"}).val();
+
       var prod = getproduct(getURLParam("varenr"));      
       $("#varenr").val(prod.varenr);        
       $("#navn").val(prod.navn);

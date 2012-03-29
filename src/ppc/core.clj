@@ -16,6 +16,12 @@
     (find-items "priser" kontrakt false ["eq" (first varenr)])
     (find-items "priser" kontrakt false)))
 
+(defn find-alle-planer []
+  (loop [p (scan "priser") r #{}]
+    (if (empty? p)
+      (vec r)
+      (recur (rest p) (conj r (:kontrakt (first p)))))))
+
 (defn gem-pris [pris]  
   (try
     (let [tpris {:kontrakt (:kontrakt pris) :varenr (:varenr pris) :pris (:pris pris) :copydan (:copydan pris)
@@ -93,8 +99,10 @@
         url (generate-query-str config/aria-admin-api-url params)]
     (do-aria-call url)))
 
-(defn create-plan [plan]
-  (let [params {:rest_call  "create_new_plan"
+(defn create-plan [varenr]
+  ;;TODO find produkt
+  (let [plan {:navn "test"}
+        params {:rest_call  "create_new_plan"
                 :plan_name (:navn plan)
                 :plan_type "Supplemental Recurring Plan"
                 :currency "dkk"

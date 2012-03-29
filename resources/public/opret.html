@@ -1,0 +1,66 @@
+<html>
+<head> 
+    <meta charset="utf-8" /> 
+
+    <!-- Set the viewport width to device width for mobile --> 
+    <meta name="viewport" content="width=device-width" /> 
+    
+    <title>YouSee Produktkatalog</title>
+    
+    <!-- Included CSS Files --> 
+    <link rel="stylesheet" href="stylesheets/foundation.css"> 
+    <link rel="stylesheet" href="stylesheets/app.css">
+    
+    <!-- Included JS Files --> 
+    <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/foundation.js"></script> 
+    <script type="text/javascript" src="javascripts/app.js"></script> 
+    <script type="text/javascript" src="javascripts/modernizr.foundation.js"></script>
+    <script type="text/javascript" src="javascripts/ppc.js"></script>
+  </head> 
+  <body>
+    <!-- container --> 
+    <div style="padding-top:10px;" class="container">
+      <div class="row">
+	<div class="six columns">
+          <p><label for="varenr">Varenummer:</label><input id="varenr" type="text" /></p>
+          <p><label for="navn">Navn:</label><input id="navn" type="text" /></p>
+          <p><label for="fo">Forretningsområde:</label><input id="fo" type="text" /></p>
+          <p><label for="pl">Produktlinie:</label><input id="pl" type="text" /></p>
+          <p><label for="vaegt">Vægt:</label><input id="vaegt" type="text" /></p>
+	</div> 
+        <div class="six columns">
+          <p><label for="pgt">Produkt type:</label><input id="pgt" type="text" /></p>
+          <p><label for="pg">Produkt gruppe:</label><input id="pg" type="text" /></p>
+          <p><label for="sorteringsgruppe">Sorteringsgruppe:</label><input id="sorteringsgruppe" type="text" /></p>
+          <p><label for="sortering">Sortering:</label><input id="sortering" type="text" /></p>
+          <p><label for="salgsstart">Salgs start:</label><input id="salgsstart" type="text" /></p>
+	</div> 
+      </div> 
+      <div class="row">
+        <div class="nine columns"></div>
+        <div class="three columns"><a href="#" id="opret" class="nice blue button">Opret</a></div>
+      </div>
+    </div>
+    <!-- container --> 
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $("#opret").click(function() {
+        var p = {'varenr' : $("#varenr").val(),
+                 'navn' : $("#navn").val(),
+                 'fo' : $("#fo").val(),
+                 'pl' : $("#pl").val(),
+                 'vaegt' : $("#vaegt").val(),
+                 'vaegt' : $("#pgt").val(),
+                 'pgt' : $("#pgt").val(),
+                 'pg' : $("#pg").val(),
+                 'sorteringsgruppe' : $("#sorteringsgruppe").val(),
+                 'sortering' : $("#sortering").val(),
+                 'salgsstart' : $("#salgsstart").val()
+                };
+        opdater(p);
+      });
+    });      
+    </script>  
+  </body>
+</html>
