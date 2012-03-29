@@ -239,6 +239,7 @@ var template = {
     }
 }
 
+/*
 var mailpreview = {
     init: function() {
         $("#previewTemplate").click(function() {
@@ -301,7 +302,7 @@ var previewsms = {
         });
     }
 }
-
+*/
 var stat = {
   init: function(){
     stat.toogleLoadingOn();
@@ -699,4 +700,25 @@ var kf = {
         }
         return false;
     }
-};
+    
+    
+    NicTest: function() {
+
+			$.getJSON('NiCtest_simple.json', function(data) {
+			  
+			  var items = [];
+			
+			  $.each(data, function(key, val) {
+			    items.push('<tr><td>' + key + '">' + val + '</li>');
+			  });
+			
+			  $('<ul/>', {
+			    'class': 'my-new-list',
+			    html: items.join('')
+			  }).appendTo('body');
+			}
+			    
+	
+);
+}
+

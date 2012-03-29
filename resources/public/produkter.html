@@ -1,16 +1,30 @@
-<div class="row">
-  <div class="six columns panel">
-    <h3>Modtager:</h3>
-    <textarea id="testReciever" name="testReciever" rows="15" class="nice large">
-      {
-      "reciever":{"email": "maljoe@yousee.dk", "tlf":"004542225050", "kundenummer":61003434}, 
-      "data":{"navn":"Martin"}, 
-      "contactform":"Mail", 
-      "from":"maljoe@yousee.dk"
-      }
-    </textarea>
-    <a id="testSend" class="button nice">Send</a>
-  </div>
-  <div class="five columns" id="testTarget">    
-  </div>
-</div>
+				<h5>Produkter</h5>
+    <div style="padding-top:10px;" class="container">
+
+				<table width='100%'>
+					<th>
+						<tr>
+							<td>Varenummer</td>
+							<td>Navn</td>
+							<td>Produkttype</td>
+						</tr>
+					</th>
+					<tbody>
+
+<!-- Loop through the product to create a single row with data. -->
+						<tr>
+							<td>Varenummer</td>
+							<td>Navn</td>
+							<td>Produkttype</td>
+						</tr>					
+							
+<!-- end loop -->
+
+					</tbody>
+				</table>
+		</div>
+		
+		
+    <script type="text/javascript">
+    $(document).ready(prod.NicTest);
+    </script>
