@@ -35,7 +35,7 @@
           <p><label for="pg">Produkt gruppe:</label><input id="pg" type="text" /></p>
           <p><label for="sorteringsgruppe">Sorteringsgruppe:</label><input id="sorteringsgruppe" readonly="true" type="text" /></p>
           <p><label for="sortering">Sortering:</label><input id="sortering" type="text" /></p>
-          <p><label for="salgsstart">Salgs start:</label><input id="datepicker" type="text"></p>
+          <p><label for="salgsstart">Salgs start:</label><input id="salgsstart" type="text"></p>
       </div> 
       <div class="row">
         <div class="nine columns"></div>
@@ -48,7 +48,7 @@
     <script type="text/javascript">
     $(document).ready(function(){
    		$.datepicker.setDefaults($.datepicker.regional["Dansk"]); 
-			$( "#datepicker" ).datepicker();
+			$( "#salgsstart" ).datepicker();
 
       var prod = getproduct(getURLParam("varenr"));      
       $("#varenr").val(prod.varenr);        
@@ -66,13 +66,6 @@
 
     </script>  
     
-<script type="text/javascript">
-	$(function() {
-		$.datepicker.setDefaults($.datepicker.regional["Dansk"]); 
-		$( "#datepicker" ).datepicker();
-
-	});
-</script>
     
   </body>
 </html>
