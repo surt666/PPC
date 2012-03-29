@@ -24,7 +24,7 @@
     <div style="padding-top:10px;" class="container">
       <div class="row">
 	<div class="six columns">
-          <p><label for="varenr">Varenummer:</label><input id="varenr" type="text" /></p>
+          <p><label for="varenr">Varenummer:</label><input id="varenr" type="text" readonly="true" /></p>
           <p><label for="navn">Navn:</label><input id="navn" type="text" /></p>
           <p><label for="fo">Forretningsområde:</label><input id="fo" readonly="true" type="text" /></p>
           <p><label for="pl">Produktlinie:</label><input id="pl" type="text" /></p>
@@ -46,9 +46,9 @@
 
     <!-- container --> 
     <script type="text/javascript">
-    $(document).ready(function(){
-   		$.datepicker.setDefaults($.datepicker.regional["Dansk"]); 
-			$( "#salgsstart" ).datepicker();
+      $(document).ready(function(){
+      $.datepicker.setDefaults($.datepicker.regional["Dansk"]); 
+      $( "#salgsstart" ).datepicker();
 
       var prod = getproduct(getURLParam("varenr"));      
       $("#varenr").val(prod.varenr);        
