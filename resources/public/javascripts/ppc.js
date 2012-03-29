@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> f5e8a2bed0d5116a241d69ce7da4587210997a33
 var products;
 
 function translatepgt(pgt) {
@@ -33,6 +37,10 @@ function showdetails(varenr) {
   window.open('/detaljer.html?varenr=' + varenr,'details','width=400,height=200');
 }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> f5e8a2bed0d5116a241d69ce7da4587210997a33
 function insertproducts(prods) {
   var s = "";
   for (i=0;i<prods.length;i++) {
@@ -75,6 +83,8 @@ function getproduct(varenr) {
   return ret;
 }
 
+<<<<<<< HEAD
+=======
 function opdater(p) {
   $.ajax({
       type: "POST",
@@ -93,3 +103,4 @@ function opdater(p) {
   });
 }
 
+>>>>>>> f5e8a2bed0d5116a241d69ce7da4587210997a33
