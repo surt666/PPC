@@ -36,7 +36,7 @@ function showdetails(varenr) {
 function insertproducts(prods) {
   var s = "";
   for (i=0;i<prods.length;i++) {
-    s = s + "<tr><td>" + prods[i].varenr + "</td><td>" + prods[i].navn + "</td><td>" + translatepgt(prods[i].pgt) + "</td><td>" + "<td><a href=\"#\" id=\"detaljer\" class=\"nice blue button\" onclick=\"javascript:showdetails(" + prods[i].varenr + ");\">Detaljer</a></td><td><a href=\"#\" id=\"sync\" class=\"nice blue button\">Sync</a></td>";
+    s = s + "<tr><td><input type=\"checkbox\" /></td><td>" + prods[i].varenr + "</td><td>" + prods[i].navn + "</td><td>" + translatepgt(prods[i].pgt) + "</td><td>" + "<td><a href=\"#\" id=\"detaljer\" class=\"nice blue button\" onclick=\"javascript:showdetails(" + prods[i].varenr + ");\">Detaljer</a></td><td><a href=\"#\" id=\"sync\" class=\"nice blue button\" onclick=\"javascript:sync(" + prods[i].varenr + ");\">Sync</a></td>";
   }
   $("#produkter").html(s);
 }
@@ -90,5 +90,44 @@ function opdater(p) {
       success: function(result) {
           self.close();
       }
+  });
+}
+
+function sync(varenr) {
+  $.ajax({
+      type: "PUT",
+      accepts: "application/json",
+      cache: false,
+      url: "/ppc/sync/" + varenr,
+      dataType: "json",
+      error: function(request, error) {
+          alert(error + " " + JSON.stringify(request));
+      },
+      success: function(result) {
+          alert("Synced");
+      }
+  });
+}
+
+function insertplaner(planer) {
+  var s = "";
+  for (i=0;i<planer.length;i++) {
+    s = s + "<option>" + planer[i] + "</option>";
+  }
+  $("#planer").html(s);
+}
+
+function hentplaner() {
+   $.ajax({
+    type: "GET",
+    cache: false,
+    url: "/ppc/prisplan/alle",
+    dataType: "json",            
+    error: function(request, error) {
+      alert(error);
+    },
+    success: function(result) {
+      insertplaner(result)
+    }
   });
 }

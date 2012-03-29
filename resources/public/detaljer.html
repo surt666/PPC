@@ -46,9 +46,8 @@
 
     <!-- container --> 
     <script type="text/javascript">
-      $(document).ready(function(){
-      $.datepicker.setDefaults($.datepicker.regional["Dansk"]); 
-      $( "#salgsstart" ).datepicker();
+      $(document).ready(function(){ 
+      $("#salgsstart").datepicker({dateFormat: "yy-mm-dd"}).val();
 
       var prod = getproduct(getURLParam("varenr"));      
       $("#varenr").val(prod.varenr);        

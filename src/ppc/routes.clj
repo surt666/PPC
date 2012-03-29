@@ -15,6 +15,9 @@
 
   (GET ["/:context/produkter/:varenr" , :context #".[^/]*"] [varenr]       
        (json-response (find-produkt (Integer/parseInt varenr)) "application/json"))
+
+  (GET ["/:context/prisplan/alle" , :context #".[^/]*"] []       
+       (json-response (find-alle-planer) "application/json"))
   
   (GET ["/:context/prisplan/:kontrakt" , :context #".[^/]*"] [kontrakt]       
        (json-response (find-pris kontrakt) "application/json"))
@@ -34,13 +37,12 @@
             (json-response nil "application/json" :status 400)
             (json-response res "application/json"))))
 
+  (PUT ["/:context/sync/:varenr" , :context #".[^/]*"] [varenr]      
+        (create-plan varenr))
+
   (POST ["/:context/produkter" , :context #".[^/]*"] req        
-<<<<<<< HEAD
-        (let [res (gem-produkt (parse-body (:body req)))]
-=======
         (let [body (parse-body (:body req))
               res (gem-produkt (assoc body :varenr (Integer/parseInt (:varenr body))))]
->>>>>>> f5e8a2bed0d5116a241d69ce7da4587210997a33
           (if (nil? res)
             (json-response nil "application/json" :status 400)
             (json-response res "application/json"))))

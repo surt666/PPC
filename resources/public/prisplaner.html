@@ -1,0 +1,42 @@
+<html>
+<head> 
+    <meta charset="utf-8" /> 
+
+    <!-- Set the viewport width to device width for mobile --> 
+    <meta name="viewport" content="width=device-width" /> 
+    
+    <title>YouSee Produktkatalog</title>
+    
+    <!-- Included CSS Files --> 
+    <link rel="stylesheet" href="stylesheets/foundation.css"> 
+    <link rel="stylesheet" href="stylesheets/app.css">
+    
+    <!-- Included JS Files --> 
+    <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery-ui-1.8.18.custom.min.js"></script>    
+    <script type="text/javascript" src="javascripts/foundation.js"></script> 
+    <script type="text/javascript" src="javascripts/app.js"></script> 
+    <script type="text/javascript" src="javascripts/modernizr.foundation.js"></script>
+    <script type="text/javascript" src="javascripts/ppc.js"></script>
+  </head> 
+  <body>
+    <!-- container --> 
+    <div style="padding-top:10px;" class="container">
+      <div class="row">
+	<div class="four columns">
+          <p><a href="#" id="nyplan" class="nice blue button">Ny prisplan</a></p>
+          <p><select id="planer" onchange="javascript:showplan(this.value);"></select></p>
+	</div> 
+        <div class="eight columns">         
+	</div> 
+      </div> 
+    </div>
+
+    <!-- container --> 
+    <script type="text/javascript">
+      $(document).ready(function() {
+        hentplaner();
+      });      
+    </script>  
+  </body>
+</html>
