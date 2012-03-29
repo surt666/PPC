@@ -23,38 +23,31 @@
     <!-- container --> 
     <div style="padding-top:10px;" class="container">
       <div class="row">
-	<div class="four columns">
-          <p><a href="#" id="nyplan" class="nice blue button">Ny prisplan</a></p>
-          <p><select id="planer" onchange="javascript:showplan(this.value);"></select><a href="#" id="nypris" class="nice blue button" onclick="javascript:opretnypris();">Ny pris</a></p>
+	<div class="twelwe columns">
+          <p><label for="varenr">Varenummer:</label><input id="varenr" type="text" /></p>
+          <p><label for="pris">Pris:</label><input id="pris" type="text" /></p>
+          <p><label for="copydan">Copydan:</label><input id="copydan" type="text" /></p>
+          <p><label for="koda">Koda:</label><input id="koda" type="text" /></p>
+          <p><label for="rkoda">Radio Koda:</label><input id="rkoda" type="text" /></p>
 	</div> 
-        <div class="eight columns">         
-	</div> 
-      </div> 
       <div class="row">
-	<div class="twelve columns">
-          <table>
-            <thead>
-              <tr>
-                <th>Varenummer</th><th>Pris</th><th>Copydan</th><th>Koda</th><th>Radio Koda</th><th>Moms</th><th>Total Pris</th>
-              </tr>
-            </thead>
-            <tbody id="priser">
-              <tr>
-                <td>121313</td><td>111</td><td>bla</td><td>abon</td><td>aoa</td><td>1212</td><td>1212</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="nine columns"></div>
+        <div class="three columns"><a href="#" id="opret" class="nice blue button">Opdater</a></div>
       </div>
     </div>
 
     <!-- container --> 
-    <script type="text/javascript">
-      $(document).ready(function() {
-        hentplaner();       
-        showplan('yousee');
-        $("#planer").val('yousee');
-      });      
+    <script type="text/javascript">          
+      $("#opret").click(function() {
+        var p = {'kontrakt' : getURLParam("kontrakt"),
+                 'varenr' : $("#varenr").val(),
+                 'pris' : $("#pris").val(),
+                 'copydan' : $("#copydan").val(),
+                 'koda' : $("#koda").val(),
+                 'radio-koda' : $("#rkoda").val()
+                };
+        opretpris(p);
+      });             
     </script>  
   </body>
 </html>

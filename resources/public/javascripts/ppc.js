@@ -33,10 +33,14 @@ function showdetails(varenr) {
   window.open('/detaljer.html?varenr=' + varenr,'details','width=400,height=200');
 }
 
+function opretnypris() {
+  window.open('/nypris.html?kontrakt=' + $('#planer').val(),'details','width=400,height=200');
+}
+
 function insertproducts(prods) {
   var s = "";
   for (i=0;i<prods.length;i++) {
-    s = s + "<tr><td><input type=\"checkbox\" /></td><td>" + prods[i].varenr + "</td><td>" + prods[i].navn + "</td><td>" + translatepgt(prods[i].pgt) + "</td><td>" + "<td><a href=\"#\" id=\"detaljer\" class=\"nice blue button\" onclick=\"javascript:showdetails(" + prods[i].varenr + ");\">Detaljer</a></td><td><a href=\"#\" id=\"sync\" class=\"nice blue button\" onclick=\"javascript:sync(" + prods[i].varenr + ");\">Sync</a></td>";
+    s = s + "<tr><td><input type=\"checkbox\" /></td><td>" + prods[i].varenr + "</td><td>" + prods[i].navn + "</td><td>" + translatepgt(prods[i].pgt) + "</td><td>" + "<td><a href=\"#\" id=\"detaljer\" class=\"nice blue button\" onclick=\"javascript:showdetails(" + prods[i].varenr + ");\">Detaljer</a></td><td><a href=\"#\" id=\"sync\" class=\"nice blue button\" onclick=\"javascript:sync(" + prods[i].varenr + ");\">Sync</a></td></tr>";
   }
   $("#produkter").html(s);
 }
@@ -112,7 +116,7 @@ function sync(varenr) {
 function insertplaner(planer) {
   var s = "";
   for (i=0;i<planer.length;i++) {
-    s = s + "<option>" + planer[i] + "</option>";
+    s = s + "<option value=" + planer[i] + ">" + planer[i] + "</option>";
   }
   $("#planer").html(s);
 }
@@ -131,3 +135,47 @@ function hentplaner() {
     }
   });
 }
+
+function insertpriser(priser) {
+  var p = "";
+  for (i=0;i<priser.length;i++) {
+    p = p + "<tr><td>" + priser[i].varenr + "</td><td>" + priser[i].pris + "</td><td>" + priser[i].copydan + "</td><td>" + priser[i].koda + "</td><td>" + priser[i]['radio-koda'] + "</td><td>" + priser[i].moms + "</td><td>" + priser[i].totalpris + "</td></tr>";
+  }  
+  $("#priser").html(p);
+}
+
+function showplan(kontrakt) {
+  $.ajax({
+    type: "GET",
+    cache: false,
+    url: "/ppc/prisplan/" + kontrakt,
+    dataType: "json",            
+    error: function(request, error) {
+      alert(error);
+    },
+    success: function(result) {
+      insertpriser(result);
+    }
+  });
+}
+
+function opretpris(pris) {
+  alert(JSON.stringify(pris));
+  $.ajax({
+      type: "POST",
+      accepts: "application/json",
+      cache: false,
+      contentType: "application/json",
+      url: "/ppc/prisplan",
+      dataType: "json",
+      data: JSON.stringify(pris),
+      error: function(request, error) {
+          alert(error + " " + JSON.stringify(request));
+      },
+      success: function(result) {
+          self.close();
+      }
+  });
+}
+
+

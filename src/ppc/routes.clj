@@ -48,7 +48,8 @@
             (json-response res "application/json"))))
   
   (POST ["/:context/prisplan" , :context #".[^/]*"] req        
-        (let [res (gem-pris (parse-body (:body req)))]
+        (let [body (parse-body (:body req))             
+              res (gem-pris (assoc body :varenr (Integer/parseInt (:varenr body))))]
           (if (nil? res)
             (json-response nil "application/json" :status 400)
             (json-response res "application/json")))))
