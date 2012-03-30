@@ -30,15 +30,15 @@ function getURLParam(strParamName) {
 }
 
 function showdetails(varenr) {
-  window.open('/detaljer.html?varenr=' + varenr,'details','width=400,height=200');
+  window.open('/detaljer.html?varenr=' + varenr,'details','menubar=yes,width=400,height=200');
 }
 
 function opretnypris() {
-  window.open('/nypris.html?kontrakt=' + $('#planer').val(),'details','width=400,height=200');
+  window.open('/nypris.html?kontrakt=' + $('#planer').val(),'details','menubar=yes,width=400,height=200');
 }
 
 function opretnyservice() {
-  window.open('/nyservice.html?type=' + $('#servicetype').val(),'details','width=400,height=200');
+  window.open('/nyservice.html?type=' + $('#servicetype').val(),'details','menubar=yes,width=400,height=200');
 }
 
 function insertproducts(prods) {
