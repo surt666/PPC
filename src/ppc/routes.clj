@@ -31,6 +31,12 @@
   (GET ["/:context/services/:type/:id" , :context #".[^/]*"] [type id]
        (json-response (find-service type id) "application/json"))
 
+  (GET ["/:context/services/:type" , :context #".[^/]*"] [type]       
+       (json-response (find-service type) "application/json"))
+  
+  (GET ["/:context/services/:type/:id" , :context #".[^/]*"] [type id]
+       (json-response (find-service type id) "application/json"))
+
   (POST ["/:context/services" , :context #".[^/]*"] req        
         (let [res (gem-service (parse-body (:body req)))]
           (if (nil? res)

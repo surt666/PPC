@@ -23,41 +23,27 @@
     <!-- container --> 
     <div style="padding-top:10px;" class="container">
       <div class="row">
-	<div class="four columns">        
-          <p><select id="servicetype" onchange="javascript:showservices(this.value);">
-              <option value="abonnement">Abonnement</option>
-              <option value="hw">HW</option>
-              <option value="forbrug">Forbrug</option>
-             </select>
-             <a href="#" id="nyservice" class="nice small blue button" onclick="javascript:opretnyservice();">Ny service</a></p>
+	<div class="twelwe columns">
+          <p><label for="id">Navn:</label><input id="id" type="text" /></p>
+          <p><label for="provkode">Provisioneringskode:</label><input id="provkode" type="text" /></p>
+          <p><label for="logistikkode">Logistikkode:</label><input id="logistikkode" type="text" /></p>      
 	</div> 
-        <div class="eight columns">         
-	</div> 
-      </div> 
       <div class="row">
-	<div class="twelve columns">
-          <table>
-            <thead>
-              <tr>
-                <th>Navn</th><th>Provisioneringskode</th><th>Logistikkode</th>
-              </tr>
-            </thead>
-            <tbody id="services">
-              <tr>
-                <td>BB 20/2</td><td>111</td><td>2323</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="nine columns"></div>
+        <div class="three columns"><a href="#" id="opretservice" class="nice small blue button">Opret</a></div>
       </div>
     </div>
 
     <!-- container --> 
-    <script type="text/javascript">
-      $(document).ready(function() {      
-        showservices('abonnement');
-        $("#servicetype").val('abonnement');
-      });      
+    <script type="text/javascript">          
+      $("#opretservice").click(function() {
+        var s = {'type' : getURLParam("type"),
+                 'id' : $("#id").val(),
+                 'provisioneringskode' : $("#provkode").val(),
+                 'logistikkode' : $("#logistikkode").val()         
+                };
+        opretservice(s);
+      });             
     </script>  
   </body>
 </html>

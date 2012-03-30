@@ -1,5 +1,6 @@
 (ns ppc.core
-  (:use dynamo4clj.core)
+  (:use dynamo4clj.core
+        yousee-common.common)
   (:require [http.async.client :as http-client]
             [yousee-common.wddx-if :as wddx]
             [ppc.config :as config]
@@ -122,3 +123,18 @@
         url (str purl surl schurl aurl "&parent_plans[]=10263079")]
     (prn url)
     (do-aria-call url)))
+
+(defn find-service [type & id]
+  (if-not (empty? id)
+    (find-items "services" type false ["eq" (first id)])
+    (find-items "services" type false)))
+
+(defn gem-service [service]
+  (try
+    (let [s {:type (:type service) :id (:id service) :provisioneringskode (:provisioneringskode service) :logistikkode (:logistikkode service)}
+          _ (prn s)]    
+      (insert-item "services" (prune-tree s))
+      s)
+    (catch Exception e
+      (prn e)
+      nil)))
