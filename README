@@ -1,10 +1,16 @@
 # ppc
 
-FIXME: write description
+Productand Price Catalogue
 
 ## Usage
 
-FIXME: write
+lein deps
+lein repl
+(use 'jetty)
+
+Place aws.properties and config.properties in the classpath root. See dynamo4clj for details.
+
+Go to http://localhost:8080/index.html
 
 ## License
 
