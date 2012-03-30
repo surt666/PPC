@@ -1,6 +1,6 @@
 <div class="row">
   <div class="twelve columns">
-    <a href="#" id="opretprodukt" class="nice blue button">Opret produkt</a>
+    <a href="#" id="opretprodukt" class="nice blue button" onclick="javascript:window.open('/opret.html','opretprodukt','width=400,height=200');">Opret produkt</a>
   </div>
 </div>
 <div class="row">
@@ -27,9 +27,5 @@
 <script type="text/javascript">
 $(document).ready(function() {
   getproducts();
-  $("#opretprodukt").click(function() {
-   window.open('/opret.html','opretprodukt','width=400,height=200');
-  });
 });
-
 </script>
