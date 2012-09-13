@@ -1,62 +1,253 @@
 (ns ppc.core
-  (:use dynamo4clj.core
+  (:use [datomic.api :only [q db] :as d]
         yousee-common.common)
   (:require [http.async.client :as http-client]
             [yousee-common.wddx-if :as wddx]
             [ppc.config :as config]
             [ring.util.codec :as codec]))
 
-(defrecord Pris [kontrakt varenr pris copydan koda radio-koda])
+(def schema [{:db/id #db/id[:db.part/db]
+              :db/ident :produkt
+              :db.install/_partition :db.part/db}
 
-(defrecord Produkt [varenr navn fo pl pgt pg vaegt sorteringsgruppe sortering salgsstart salgsslut services])
+             {:db/id #db/id[:db.part/db]
+              :db/ident :services
+              :db.install/_partition :db.part/db}
 
-(defrecord Service [type id provisionerings-kode logistik-kode])
+             {:db/id #db/id[:db.part/db]
+              :db/ident :plan
+              :db.install/_partition :db.part/db}
 
-(defn find-pris [kontrakt & varenr]
+             {:db/id #db/id[:db.part/db]
+              :db/ident :kontrakt
+              :db.install/_partition :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :pris
+              :db.install/_partition :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :kontrakt/id
+              :db/valueType :db.type/string
+              :db/unique :db.unique/value
+              :db/cardinality :db.cardinality/one              
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :kontrakt/navn
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one              
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :plan/id
+              :db/valueType :db.type/string
+              :db/unique :db.unique/identity
+              :db/cardinality :db.cardinality/one              
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :plan/navn
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one              
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :plan/kontrakter
+              :db/valueType :db.type/ref
+              :db/cardinality :db.cardinality/many             
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :pris/plan
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :pris/varenr
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :pris/pris
+              :db/valueType :db.type/double
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :pris/koda
+              :db/valueType :db.type/double
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :pris/copydan
+              :db/valueType :db.type/double
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :pris/radiokoda
+              :db/valueType :db.type/double
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/varenr
+              :db/valueType :db.type/string
+              :db/unique :db.unique/value
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/navn
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/fo
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/services
+              :db/valueType :db.type/ref
+              :db/cardinality :db.cardinality/many            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/pl
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/pgt
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/pg
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/fo
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/salgsstart
+              :db/valueType :db.type/instant
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/salgsslut
+              :db/valueType :db.type/instant
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/vaegt
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/sorteringsgruppe
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :produkt/sortering
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :service/type
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :service/navn
+              :db/valueType :db.type/string
+              :db/unique :db.unique/value
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :service/prov-kode
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}
+
+             {:db/id #db/id[:db.part/db]
+              :db/ident :service/logistik-kode
+              :db/valueType :db.type/string
+              :db/cardinality :db.cardinality/one            
+              :db.install/_attribute :db.part/db}])
+
+(def uri "datomic:dev://localhost:4334/yousee")
+
+(def conn (delay (d/connect uri)))
+
+(defn create-schema []  
+  @(d/transact @conn schema))
+
+(defn insert [l]
+  @(d/transact @conn l))
+
+(defn decorate 
+  "Simple function to pull out all the attributes of an entity into a map"
+  [id & [time]]
+  (let [db (if time (d/as-of (d/db @conn) time) (d/db @conn))        
+        e (d/entity db id)]
+    (select-keys e (keys e))))
+
+;(defrecord Pris [kontrakt varenr pris copydan koda radio-koda])
+
+;(defrecord Produkt [varenr navn fo pl pgt pg vaegt sorteringsgruppe sortering salgsstart salgsslut services])
+
+;(defrecord Service [type id provisionerings-kode logistik-kode])
+
+(defn find-pris [plan & varenr]
   (if-not (empty? varenr)
-    (find-items "priser" kontrakt false ["eq" (first varenr)])
-    (find-items "priser" kontrakt false)))
+    (map #(decorate %) (seq (q '[:find ?e :in $ ?p ?v :where [?e :pris/plan ?p] [?e :pris/varenr ?v]] (d/db @conn) plan varenr)))
+    (map #(decorate %) (seq (q '[:find ?e :in $ ?p ?v :where [?e :pris/plan ?p]] (d/db @conn) plan)))))
 
 (defn find-alle-planer []
-  (loop [p (scan "priser") r #{}]
-    (if (empty? p)
-      (vec r)
-      (recur (rest p) (conj r (:kontrakt (first p)))))))
+  (map #(decorate %) (seq (q '[:find ?e :where [?e :plan/id]] (d/db @conn)))))
 
 (defn gem-pris [pris]  
-  (try
-    (let [tpris {:kontrakt (:kontrakt pris) :varenr (:varenr pris) :pris (:pris pris) :copydan (:copydan pris)
-                :koda (:koda pris) :radio-koda (:radio-koda pris) :moms (str (* 0.25 (Double/parseDouble (:pris pris))))
-                :totalpris (str (+ (Double/parseDouble (:pris pris)) (Double/parseDouble (:copydan pris)) (Double/parseDouble (:koda pris)) (Double/parseDouble (:radio-koda pris)) (* 0.25 (Double/parseDouble (:pris pris)))))}]    
-      (insert-item "priser" tpris)
-      tpris)
-    (catch Exception e
-      nil)))
+  (insert (vector pris)))
 
 (defn gem-produkt [produkt]
-  (try
-    (insert-item "produkter" produkt)
-    produkt
-    (catch Exception e
-      nil)))
+  (insert (vector produkt)))
 
 (defn find-produkt [varenr]
-  (get-item "produkter" varenr))
+  (first (map #(decorate %) (seq (q '[:find ?e :in $ ?v :where [?e :produkt/varenr ?v]] (d/db @conn) varenr)))))
 
 (defn find-alle-produkter []
-  (scan "produkter"))
+  (map #(decorate %) (seq (q '[:find ?e :where [?e :produkt/varenr]] (d/db @conn)))))
 
 (defn gem-service [service]
-  (try
-    (insert-item "services" service)
-    service
-    (catch Exception e
-      nil)))
+  (insert (vector service)))
 
-(defn find-service [type & id]
-  (if-not (empty? id)
-    (find-items "services" type false ["eq" (first id)])
-    (find-items "services" type false)))
+(defn find-service [type & navn]
+  (if-not (empty? navn)
+    (map #(decorate %) (seq (q '[:find ?e :in $ ?t ?n :where [?e :service/type ?t] [?e :service/navn ?n]] (d/db @conn) type navn)))
+    (map #(decorate %) (seq (q '[:find ?e :in $ ?t :where [?e :service/type]] (d/db @conn) type)))))
 
 (defn do-aria-call [url]
   (with-open [client (http-client/create-client)]
@@ -91,14 +282,14 @@
       s
       (recur (rest a) (str s "&" (str "schedule[" (- (count a) 1) "][currency_cd]=dkk&service[0][tier][0][schedule][" (- (count a) 1) "][amount]") "=" (codec/url-encode (first a) "UTF-8"))))))
 
-(defn create-service [service]
-  (let [params {:rest_call  "create_service"
-                :service_name (:navn service)
-                :service_type "Recurring"
-                :gl_cd "12345"
-                :taxable_ind "0"}
-        url (generate-query-str config/aria-admin-api-url params)]
-    (do-aria-call url)))
+;; (defn create-service [service]
+;;   (let [params {:rest_call  "create_service"
+;;                 :service_name (:navn service)
+;;                 :service_type "Recurring"
+;;                 :gl_cd "12345"
+;;                 :taxable_ind "0"}
+;;         url (generate-query-str config/aria-admin-api-url params)]
+;;     (do-aria-call url)))
 
 (defn create-plan [varenr]
   ;;TODO find produkt
@@ -107,7 +298,7 @@
                 :plan_name (:navn plan)
                 :plan_type "Supplemental Recurring Plan"
                 :currency "dkk"
-                :billing_interval "3"
+                :billing_interval "1"
                 :active "1"
                 :rollover_months "0"
                 :dunning_plan_no "25609"}
@@ -115,26 +306,11 @@
         service {:name (:navn plan)
                  :service_type "Recurring"
                  :gl_cd "174294792"
-                 :taxable_ind "0"
+                 :taxable_ind "1"
                  :rate_type "Flat Rate"}
         surl (generate-service-str service)        
         aurl (generate-amount-str ["100" "90"])
         schurl (generate-schedule-str ["yousee" "KAB"])
-        url (str purl surl schurl aurl "&parent_plans[]=10263079")]
+        url (str purl "&plan_group[]=1&" surl schurl aurl "&parent_plans[]=10263079")]
     (prn url)
     (do-aria-call url)))
-
-(defn find-service [type & id]
-  (if-not (empty? id)
-    (find-items "services" type false ["eq" (first id)])
-    (find-items "services" type false)))
-
-(defn gem-service [service]
-  (try
-    (let [s {:type (:type service) :id (:id service) :provisioneringskode (:provisioneringskode service) :logistikkode (:logistikkode service)}
-          _ (prn s)]    
-      (insert-item "services" (prune-tree s))
-      s)
-    (catch Exception e
-      (prn e)
-      nil)))

@@ -3,8 +3,8 @@
 	ring.adapter.jetty)
   (:require [clojure.tools.logging :as logging]
             [clojure.tools.logging.impl :as impl])
-  (:import (org.mortbay.xml XmlConfiguration)
-	   (org.mortbay.jetty.webapp WebAppContext)))
+  (:import (org.eclipse.jetty.xml XmlConfiguration)
+           (org.eclipse.jetty.webapp WebAppContext)))
 
 (defn init-server [server]
   (try
@@ -16,5 +16,5 @@
       (. e printStackTrace))))
 
 (defonce server
-  (run-jetty #'app {:port 8080 :configurator init-server :join? false}))  
+  (run-jetty #'app {:port 8080 :configurator init-server :join? false :context "/ppc"}))  
 
